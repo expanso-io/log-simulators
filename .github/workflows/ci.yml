@@ -1,0 +1,71 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          python-version: ${{ matrix.python-version }}
+
+      - name: Sync dependencies
+        run: uv sync --locked --dev
+
+      - name: Lint
+        run: |
+          uv run ruff check .
+          uv run ruff format --check .
+
+      - name: Type-check
+        run: uv run mypy src/
+
+      - name: Test
+        run: uv run pytest
+
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Sync dependencies
+        run: uv sync --locked
+
+      - name: Every tool generates valid output
+        run: |
+          set -euo pipefail
+          for tool in web iot syslog windows asa cef app cloud k8s postgres; do
+            echo "=== logsim-$tool ==="
+            uv run "logsim-$tool" --help > /dev/null
+            uv run "logsim-$tool" --seed 1 --count 5 --rate 100 \
+              --backfill 1h --start-time 2026-01-15T12:00:00+00:00
+          done
+          uv run logsim list
+
+      - name: Standalone scripts run with bare uv
+        run: |
+          set -euo pipefail
+          for script in standalone/*.py; do
+            echo "=== $script ==="
+            uv run "$script" --seed 1 --count 3 --rate 100
+          done
+
+      - name: uvx-from-local-git install path works
+        run: |
+          uvx --from . logsim-web --seed 1 --count 3 --rate 100

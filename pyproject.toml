@@ -1,0 +1,62 @@
+[project]
+name = "log-simulators"
+version = "0.1.0"
+description = "Realistic log generators for testing data pipelines at volume - web access, IoT sensors, syslog, Windows events, Cisco ASA, CEF/LEEF, JSON app logs, cloud audit, Kubernetes, and PostgreSQL. Requires only uv."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+authors = [{ name = "Expanso", email = "support@expanso.io" }]
+keywords = ["logs", "log-generator", "simulator", "testing", "pipelines", "siem"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Topic :: System :: Logging",
+    "Topic :: Software Development :: Testing :: Traffic Generation",
+]
+dependencies = ["faker>=33.0.0"]
+
+[project.urls]
+Homepage = "https://github.com/expanso-io/log-simulators"
+Repository = "https://github.com/expanso-io/log-simulators"
+
+[project.scripts]
+logsim = "log_simulators.cli:main"
+logsim-web = "log_simulators.web.cli:main"
+logsim-iot = "log_simulators.iot.cli:main"
+logsim-syslog = "log_simulators.syslog.cli:main"
+logsim-windows = "log_simulators.windows.cli:main"
+logsim-asa = "log_simulators.asa.cli:main"
+logsim-cef = "log_simulators.cef.cli:main"
+logsim-app = "log_simulators.app.cli:main"
+logsim-cloud = "log_simulators.cloud.cli:main"
+logsim-k8s = "log_simulators.k8s.cli:main"
+logsim-postgres = "log_simulators.postgres.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=8.0", "ruff>=0.8.0", "mypy>=1.13"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/log_simulators"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
+
+[tool.mypy]
+python_version = "3.10"
+warn_unused_ignores = true
+check_untyped_defs = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

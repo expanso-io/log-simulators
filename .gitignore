@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+.python-version
+
+# Tooling caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Generated logs / artifacts
+*.log
+*.log.*.gz
+*.ndjson
+*.db
+*.sqlite
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
