@@ -21,6 +21,8 @@ TOOLS: dict[str, str] = {
     "cloud": "AWS CloudTrail JSON and VPC Flow Logs",
     "k8s": "Kubernetes CRI container logs (klog + JSON apps)",
     "postgres": "PostgreSQL server logs (multiline ERROR/DETAIL/STATEMENT)",
+    "vmware": "VMware vSphere logs (vCenter tasks + ESXi vmkernel/hostd)",
+    "ics": "Industrial/OT network-device syslog (Cisco-IOS-style, PLC comms)",
 }
 
 
