@@ -36,6 +36,7 @@ logsim-k8s = "log_simulators.k8s.cli:main"
 logsim-postgres = "log_simulators.postgres.cli:main"
 logsim-vmware = "log_simulators.vmware.cli:main"
 logsim-ics = "log_simulators.ics.cli:main"
+logsim-retail = "log_simulators.retail.cli:main"
 
 [dependency-groups]
 dev = ["pytest>=8.0", "ruff>=0.8.0", "mypy>=1.13"]

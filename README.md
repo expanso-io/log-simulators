@@ -27,6 +27,7 @@ collector, or straight into an [Expanso Edge](https://expanso.io) pipeline.
 | `logsim-postgres` | PostgreSQL server logs incl. multiline ERROR/DETAIL/STATEMENT and slow queries | `deadlock` — lock-contention windows |
 | `logsim-vmware` | VMware vSphere — vCenter (vpxd) task begin/finish + ESXi vmkernel/hostd/vobd, one correlated estate | `host-failure` — ESXi host drops, vSphere HA restarts its VMs |
 | `logsim-ics` | Industrial/OT network-device syslog — Cisco-IOS-style `%FAC-SEV-MNEMONIC` from plant switches, PLC comms over PROFINET/MODBUS/DNP3/IEC-104 | `plc-comm-loss` — a cell-area segment degrades and recovers |
+| `logsim-retail` | Retail point-of-sale transactions (CSV or JSON) — stable product catalog, Zipf best-sellers, recurring customers, per-region tax | `flash-sale` — promoted SKUs surge in volume and discount |
 
 Every tool shares the same CLI contract:
 
@@ -119,9 +120,10 @@ Aggregates and supersedes
 [bacalhau-project/access-log-generator](https://github.com/bacalhau-project/access-log-generator)
 (now `logsim-web`),
 [bacalhau-project/sensor-log-generator](https://github.com/bacalhau-project/sensor-log-generator)
-(now `logsim-iot`), and the log generators from `aronchick/sample-data`
-(now `logsim-windows`, `logsim-vmware`, and `logsim-ics`). CLI ergonomics
-inspired by [mingrammer/flog](https://github.com/mingrammer/flog).
+(now `logsim-iot`), the log generators from `aronchick/sample-data`
+(now `logsim-windows`, `logsim-vmware`, and `logsim-ics`), and the retail
+transaction generator from `expanso-cluster` (now `logsim-retail`). CLI
+ergonomics inspired by [mingrammer/flog](https://github.com/mingrammer/flog).
 
 ## License
 
